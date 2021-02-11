@@ -1,0 +1,31 @@
+{
+  "name": "cawfee-cli",
+  "version": "1.0.0",
+  "description": "A CLI for interacting with Cawfee",
+  "main": "./src/index.js",
+  "bin": {
+    "cawfee": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmdboi/cawfee-cli.git"
+  },
+  "keywords": [
+    "cawfee",
+    "cli"
+  ],
+  "author": "Max Diamond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmdboi/cawfee-cli/issues"
+  },
+  "homepage": "https://github.com/dmdboi/cawfee-cli#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "configstore": "^5.0.1",
+    "request": "^2.88.2"
+  }
+}
