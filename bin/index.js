@@ -17,6 +17,7 @@ const func = {
 
   increaseDrink: async function (drink) {
     let webhook = config.get("webhook");
+    let time = new Date().toLocaleTimeString()
 
     request(
       {
@@ -26,7 +27,7 @@ const func = {
       function (error, response) {
         if (error) throw new Error(error);
         console.log(
-          `You've increased your ${drink} count by 1. Check your stats at`,
+          `[${time}] - You've increased your ${drink} count by 1. Check your stats at`,
           chalk.blue("https://cawfee.dmdboi.me/account"),
           "Stay hydrated!"
         );
