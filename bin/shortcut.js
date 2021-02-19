@@ -7,6 +7,8 @@ const packageJson = require("../package.json");
 
 const config = new Configstore(packageJson.name, { foo: "bar" });
 
+const drinks = ["tea", "coffee", "water", "juice", "alcohol", "hotChocolate", "energyDrink"]
+
 const func = {
   increaseDrink: async function (drink) {
     let webhook = config.get("webhook");
@@ -30,11 +32,17 @@ const func = {
 };
 
 async function main(args) {
+  //If no drink arg
   if (!args[0]) {
-    return func.sendHelp();
+    return console.log(chalk.red("Please enter a drink to increase"));
   }
 
-  await func.increaseDrink(args[1]);
+  //If drink not supported
+  if (!drinks.includes(args[0])) {
+    return console.log(chalk.red("This drink isn't supported"));
+  }
+
+  await func.increaseDrink(args[0]);
 }
 
 main(process.argv.slice(2));
