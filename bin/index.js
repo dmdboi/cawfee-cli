@@ -15,9 +15,29 @@ const func = {
     console.log("-h => List of commands");
   },
 
+  getStats: async function (drink) {
+    let webhook = config.get("webhook");
+    let time = new Date().toLocaleTimeString();
+
+    request(
+      {
+        method: "GET",
+        url: `https://cawfee.dmdboi.me/api/stats?w=${webhook}&d=${drink}`,
+        json: true,
+      },
+      function (error, response, body) {
+        if (error) console.log(error);
+        let { stats } = body;
+        console.log(
+          `[${drink}] - You've drunk ${stats.today} today, ${stats.week} this week and ${stats.total} in total. `
+        );
+      }
+    );
+  },
+
   increaseDrink: async function (drink) {
     let webhook = config.get("webhook");
-    let time = new Date().toLocaleTimeString()
+    let time = new Date().toLocaleTimeString();
 
     request(
       {
@@ -37,7 +57,11 @@ const func = {
 
   setWebhook: async function (webhook) {
     config.set("webhook", webhook);
-    console.log(chalk.green("Your webhook has been set. Change it any time using -w again."))
+    console.log(
+      chalk.green(
+        "Your webhook has been set. Change it any time using -w again."
+      )
+    );
   },
 };
 
@@ -56,9 +80,17 @@ async function main(args) {
       }
       await func.increaseDrink(args[1]);
       break;
+    case "-s":
+      if (!args[1]) {
+        return console.log(chalk.red("Please enter a drink to view stats"));
+      }
+      await func.getStats(args[1]);
+      break;
     case "-w":
       if (!args[1]) {
-        return console.log(chalk.red("Please enter your webhook key to set it"));
+        return console.log(
+          chalk.red("Please enter your webhook key to set it")
+        );
       }
       await func.setWebhook(args[1]);
       break;
